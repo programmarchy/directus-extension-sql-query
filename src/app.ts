@@ -5,11 +5,17 @@ export default defineOperationApp({
 	name: 'SQL Query',
 	icon: 'database',
 	description: 'Execute an SQL query',
-	overview: ({ sql }) => [
+	overview: ({ sql, bindings }) => [
 		{
 			label: 'SQL',
 			text: sql,
 		},
+		...(bindings ? [
+			{
+				label: 'Bindings',
+				text: (typeof bindings === 'string') ? bindings : JSON.stringify(bindings, null, 2),
+			}
+		] : []),
 	],
 	options: [
 		{
