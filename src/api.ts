@@ -7,10 +7,13 @@ type Options = {
 
 export default defineOperationApi<Options>({
 	id: 'sql-query',
-	handler: ({ sql, bindings }, { database: knex }) => {
-		return knex.raw(
+	handler: async ({ sql, bindings }, { database: knex }) => {
+		const result = await knex.raw(
 			sql,
 			bindings
+		);
+		return JSON.parse(
+			JSON.stringify(result)
 		);
 	},
 });
